@@ -18,6 +18,7 @@ import {
 import { getHistory, getHousehold, getIngredients, getMeals, getRecipes, getSettings, plannerSettings } from "@/lib/data";
 import { fetchRecipe, matchIngredient, parseIngredientLine } from "@/lib/recipe-import";
 import { CATEGORIES } from "@/db/seed-data";
+import { ALLERGEN_LABELS, DIET_LABELS, guessAllergens, guessAnimal, list } from "@/lib/allergens";
 
 const {
   settings, members, presenceRules, presenceOverrides, meals, recipes, recipeIngredients, ingredients,
@@ -82,6 +83,9 @@ export type MemberInput = {
   isMainUser: boolean;
   isActive: boolean;
   dislikes: string;
+  allergies: string;
+  diet: string;
+  likes: string;
   /** clé `${weekday}-${mealType}` → statut */
   presence: Record<string, PresenceStatus>;
 };
@@ -97,6 +101,9 @@ export async function saveHousehold(input: MemberInput[]) {
       isMainUser: !!m.isMainUser,
       isActive: m.isActive !== false,
       dislikes: (m.dislikes ?? "").slice(0, 300),
+      allergies: list(m.allergies).filter((a) => a in ALLERGEN_LABELS).join(","),
+      diet: m.diet && m.diet in DIET_LABELS ? m.diet : "",
+      likes: (m.likes ?? "").slice(0, 300),
       sortOrder: i,
       presence: m.presence ?? {},
     }));
@@ -118,7 +125,10 @@ export async function saveHousehold(input: MemberInput[]) {
     ops.push(
       db.insert(members).values(m).onConflictDoUpdate({
         target: members.id,
-        set: { name: m.name, multiplier: m.multiplier, isMainUser: m.isMainUser, isActive: m.isActive, dislikes: m.dislikes, sortOrder: m.sortOrder },
+        set: {
+          name: m.name, multiplier: m.multiplier, isMainUser: m.isMainUser, isActive: m.isActive, dislikes: m.dislikes,
+          allergies: m.allergies, diet: m.diet, likes: m.likes, sortOrder: m.sortOrder,
+        },
       }),
     );
     ops.push(db.delete(presenceRules).where(eq(presenceRules.memberId, m.id)));
@@ -356,7 +366,7 @@ async function ensureIngredient(name: string, unitHint: "g" | "ml" | "piece" | n
   if (found) return found;
   const [created] = await db
     .insert(ingredients)
-    .values({ name: clean, unit: unitHint ?? "g", category: "Divers" })
+    .values({ name: clean, unit: unitHint ?? "g", category: "Divers", allergens: guessAllergens(clean), animal: guessAnimal(clean) })
     .returning();
   return created;
 }
@@ -378,11 +388,14 @@ export async function saveRecipe(input: RecipeInput) {
     rating: input.rating ? Math.min(5, Math.max(1, Math.round(input.rating))) : null,
     instructions: input.instructions ?? "",
     sourceUrl: input.sourceUrl ?? null,
-    imageUrl: input.imageUrl ?? null,
+    imageUrl: input.imageUrl && /^(https?:\/\/|\/photos\/)/.test(input.imageUrl) ? input.imageUrl.slice(0, 500) : null,
   };
   let id = input.id;
   if (id) {
-    await db.update(recipes).set(values).where(eq(recipes.id, id));
+    const before = await db.select({ imageUrl: recipes.imageUrl }).from(recipes).where(eq(recipes.id, id)).get();
+    // Nouvelle photo : l'ancien crédit ne s'applique plus
+    const credit = before?.imageUrl === values.imageUrl ? {} : { imageCredit: null };
+    await db.update(recipes).set({ ...values, ...credit }).where(eq(recipes.id, id));
   } else {
     const [r] = await db.insert(recipes).values(values).returning({ id: recipes.id });
     id = r.id;
@@ -498,6 +511,10 @@ export async function saveIngredient(formData: FormData) {
       carbs: f("carbs"),
       fat: f("fat"),
       isPantry: formData.get("isPantry") === "on",
+      allergens: formData.getAll("allergens").map(String).filter((a) => a in ALLERGEN_LABELS).join(","),
+      animal: ["volaille", "boeuf", "porc", "viande", "poisson", "crustace", "mollusque", "animal"].includes(String(formData.get("animal")))
+        ? String(formData.get("animal"))
+        : "",
     })
     .where(eq(ingredients.id, id));
   refresh();

@@ -216,3 +216,54 @@ describe("import de recettes", async () => {
     expect(matchIngredient("huile d'olive vierge", known)?.name).toBe("huile d'olive");
   });
 });
+
+describe("allergies, régimes et préférences", async () => {
+  const { conflictsFor, dietConflict, guessAllergens, guessAnimal, likesScore } = await import("./allergens");
+  const I = (name: string, allergens = "", animal = "") => ({ ingredient: { name, allergens, animal } });
+  const carbonara = { title: "Carbonara", tags: "porc", ingredients: [I("pâtes", "gluten"), I("lardons", "", "porc"), I("œuf", "oeufs")] };
+  const dahl = { title: "Dahl", tags: "vege", ingredients: [I("lentilles"), I("lait de coco")] };
+  const pesto = { title: "Pâtes pesto", tags: "vege", ingredients: [I("pâtes", "gluten"), I("parmesan", "lait")] };
+
+  it("détecte allergies, régimes et dégoûts", () => {
+    const c = conflictsFor(carbonara, [
+      { name: "Louis", allergies: "oeufs" },
+      { name: "Sarah", diet: "sans-porc" },
+      { name: "Manon", dislikes: "lardon" },
+      { name: "Moi" },
+    ]);
+    expect(c.map((x) => `${x.member}:${x.kind}`)).toEqual(["Louis:allergie", "Sarah:regime", "Manon:gout"]);
+    expect(dietConflict("vegan", pesto)).toBe("produit laitier");
+    expect(dietConflict("vegan", dahl)).toBeNull();
+    expect(dietConflict("vegetarien", carbonara)).toBe("viande");
+  });
+
+  it("devine les allergènes des ingrédients importés sans faux positifs", () => {
+    expect(guessAllergens("crème fraîche épaisse")).toBe("lait");
+    expect(guessAllergens("laitue")).toBe("");
+    expect(guessAllergens("farine de sarrasin")).toBe("");
+    expect(guessAllergens("farine de blé")).toBe("gluten");
+    expect(guessAllergens("jaunes d'œufs")).toBe("oeufs");
+    expect(guessAllergens("vinaigre balsamique")).toBe("sulfites");
+    expect(guessAllergens("noix de coco râpée")).toBe("");
+    expect(guessAnimal("lardons fumés")).toBe("porc");
+    expect(guessAnimal("épinards")).toBe("");
+  });
+
+  it("favorise les préférences", () => {
+    expect(likesScore(dahl, [{ name: "a", likes: "lentille" }, { name: "b", likes: "pates" }])).toBe(1);
+    expect(likesScore(pesto, [{ name: "b", likes: "pâtes" }])).toBe(1);
+  });
+
+  it("le moteur n'expose jamais un convive à son allergène, même via les restes", () => {
+    const h = household();
+    h.members[1].allergies = "oeufs"; // Isabelle
+    const eggy = recipe("oeufs-partout");
+    const safe = recipe("sans-oeuf", { ingredients: [{ ingredient: rice, quantity: 100, note: "" }] });
+    const egg2 = { ...egg, allergens: "oeufs" };
+    eggy.ingredients = eggy.ingredients.map((i) => (i.ingredient.id === "œuf" ? { ...i, ingredient: egg2 } : i));
+    const plan = generatePlan({
+      dates: weekDates(MONDAY), household: h, recipes: [eggy, safe], existing: [], history: [], settings, random: () => 0.5,
+    });
+    expect(plan.every((m) => m.recipeId === "sans-oeuf")).toBe(true);
+  });
+});

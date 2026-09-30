@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Briefcase, Check, Home, Plus, Star, Trash2, X } from "lucide-react";
+import { AlertTriangle, Briefcase, Check, Heart, Home, Plus, Star, ThumbsDown, Trash2, X } from "lucide-react";
 import { saveHousehold, type MemberInput } from "@/app/actions";
 import { WEEKDAY_SHORT } from "@/lib/dates";
 import type { PresenceStatus } from "@/lib/planner";
+import { ALLERGEN_LABELS, DIET_LABELS, list as splitList } from "@/lib/allergens";
+import { Avatar } from "./avatar";
 
 export const PROFILES = [
   { label: "Adulte", value: 1 },
@@ -53,7 +55,7 @@ export function HouseholdEditor({
   const [list, setList] = useState<MemberInput[]>(
     initial.length
       ? initial
-      : [{ name: "", multiplier: 1, isMainUser: true, isActive: true, dislikes: "", presence: {} }],
+      : [{ name: "", multiplier: 1, isMainUser: true, isActive: true, dislikes: "", allergies: "", diet: "", likes: "", presence: {} }],
   );
   const [pending, start] = useTransition();
   const [msg, setMsg] = useState<string | null>(null);
@@ -88,6 +90,7 @@ export function HouseholdEditor({
       {list.map((m, i) => (
         <div key={i} className="card space-y-4 p-4">
           <div className="flex flex-wrap items-end gap-3">
+            <Avatar name={m.name || "?"} index={i} size={42} />
             <div className="min-w-40 flex-1">
               <label className="label">Prénom</label>
               <input className="input" value={m.name} placeholder="ex : Isabelle" onChange={(e) => update(i, { name: e.target.value })} />
@@ -190,15 +193,72 @@ export function HouseholdEditor({
             </div>
           </div>
 
-          <div>
-            <label className="label">N&apos;aime pas (mots-clés séparés par des virgules)</label>
-            <input
-              className="input"
-              value={m.dislikes}
-              placeholder="ex : champignon, poivron, saumon"
-              onChange={(e) => update(i, { dislikes: e.target.value })}
-            />
+          <div className="space-y-3 rounded-2xl bg-surface-2 p-3">
+            <p className="flex items-center gap-1.5 text-sm font-bold">
+              <AlertTriangle size={15} className="text-bad" /> Allergies
+              <span className="font-normal text-muted">— jamais proposées à {m.name.trim() || "cette personne"}</span>
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {Object.entries(ALLERGEN_LABELS).map(([code, label]) => {
+                const on = splitList(m.allergies).includes(code);
+                return (
+                  <button
+                    key={code}
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => {
+                      const cur = splitList(m.allergies);
+                      update(i, { allergies: (on ? cur.filter((c) => c !== code) : [...cur, code]).join(",") });
+                    }}
+                    className={`rounded-full px-3 py-1 text-xs font-semibold transition ${
+                      on ? "bg-bad text-white" : "border border-line bg-surface text-ink hover:border-bad"
+                    }`}
+                  >
+                    {on && "✕ "}
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <div>
+                <label className="label">Régime</label>
+                <select className="input" value={m.diet} onChange={(e) => update(i, { diet: e.target.value })}>
+                  {Object.entries(DIET_LABELS).map(([code, label]) => (
+                    <option key={code} value={code}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="label flex items-center gap-1">
+                  <Heart size={12} /> Aime
+                </label>
+                <input
+                  className="input"
+                  value={m.likes}
+                  placeholder="pâtes, poisson, curry…"
+                  onChange={(e) => update(i, { likes: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="label flex items-center gap-1">
+                  <ThumbsDown size={12} /> N&apos;aime pas
+                </label>
+                <input
+                  className="input"
+                  value={m.dislikes}
+                  placeholder="champignon, poivron…"
+                  onChange={(e) => update(i, { dislikes: e.target.value })}
+                />
+              </div>
+            </div>
+            <p className="text-xs text-muted">
+              « Aime » favorise ces plats dans les propositions ; « N&apos;aime pas » les écarte. Séparez les mots par des virgules.
+            </p>
           </div>
+
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" checked={m.isActive} onChange={(e) => update(i, { isActive: e.target.checked })} />
             Présent dans le foyer (décocher pendant une longue absence)
@@ -256,7 +316,7 @@ export function HouseholdEditor({
           type="button"
           className="btn-ghost"
           onClick={() =>
-            setList((l) => [...l, { name: "", multiplier: 1, isMainUser: false, isActive: true, dislikes: "", presence: {} }])
+            setList((l) => [...l, { name: "", multiplier: 1, isMainUser: false, isActive: true, dislikes: "", allergies: "", diet: "", likes: "", presence: {} }])
           }
         >
           <Plus size={16} /> Ajouter une personne

@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useOptimistic, useState, useTransition } from "react";
+import { RecipeImage } from "./recipe-image";
 import { Check, ClipboardCopy, Plus, RotateCcw, Trash2 } from "lucide-react";
 import { addManualItem, deleteManualItem, resetShopping, toggleManualItem, toggleShoppingCheck } from "@/app/actions";
 
@@ -15,6 +17,7 @@ export function ShoppingView({
   manual,
   allCategories,
   mealsCount,
+  menu,
 }: {
   week: string;
   categories: { name: string; items: Item[] }[];
@@ -23,6 +26,7 @@ export function ShoppingView({
   manual: Manual[];
   allCategories: string[];
   mealsCount: number;
+  menu: { id: string; recipeId: string; title: string; imageUrl: string | null; label: string }[];
 }) {
   const [, start] = useTransition();
   const [checkedSet, setChecked] = useOptimistic(new Set(checked), (s, { key, on }: { key: string; on: boolean }) => {
@@ -82,6 +86,17 @@ export function ShoppingView({
 
   return (
     <div className="space-y-4">
+      {menu.length > 0 && (
+        <div className="no-scrollbar -mx-4 flex gap-3 overflow-x-auto px-4 pb-1">
+          {menu.map((m) => (
+            <Link key={m.id} href={`/recettes/${m.recipeId}?repas=${m.id}`} className="w-28 flex-none">
+              <RecipeImage src={m.imageUrl} title={m.title} className="aspect-square w-28" />
+              <p className="mt-1 line-clamp-2 text-xs font-bold leading-tight">{m.title}</p>
+              <p className="text-[11px] text-muted">{m.label}</p>
+            </Link>
+          ))}
+        </div>
+      )}
       <div className="card flex flex-wrap items-center gap-3 p-3">
         <div className="flex-1">
           <div className="text-sm font-bold">

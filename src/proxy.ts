@@ -10,5 +10,5 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   // Tout sauf la page de connexion, les fichiers statiques et le manifeste PWA
-  matcher: ["/((?!connexion|_next/static|_next/image|favicon.ico|icon|manifest.webmanifest|sw.js).*)"],
+  matcher: ["/((?!connexion|_next/static|_next/image|favicon.ico|icon|manifest.webmanifest|sw.js|photos/).*)"],
 };

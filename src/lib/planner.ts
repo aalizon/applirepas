@@ -2,6 +2,7 @@
  * Logique métier pure (sans base de données) : présence, portions, restes,
  * nutrition, liste de courses et moteur de proposition. Testée dans planner.test.ts.
  */
+import { conflictsFor, likesScore } from "./allergens";
 import { addDays, isWeekend, seasonOf, weekday } from "./dates";
 
 export type MealType = "LUNCH" | "DINNER";
@@ -15,6 +16,10 @@ export type MemberLite = {
   isMainUser: boolean;
   isActive: boolean;
   dislikes: string;
+  /** Codes allergènes séparés par des virgules (optionnel pour la compatibilité) */
+  allergies?: string;
+  diet?: string;
+  likes?: string;
 };
 
 export type Rule = { memberId: string; weekday: number; mealType: string; status: string };
@@ -31,6 +36,8 @@ export type IngredientLite = {
   carbs: number | null;
   fat: number | null;
   isPantry: boolean;
+  allergens?: string;
+  animal?: string;
 };
 
 export type RecipeFull = {
@@ -289,18 +296,12 @@ export function totalTime(r: { prepTime: number; cookTime: number }) {
   return r.prepTime + r.cookTime;
 }
 
-function containsDisliked(recipe: RecipeFull, eaters: MemberLite[]) {
-  const words = eaters.flatMap((m) =>
-    m.dislikes.split(",").map((w) => w.trim().toLowerCase()).filter(Boolean),
-  );
-  if (!words.length) return false;
-  return recipe.ingredients.some((ri) => words.some((w) => ri.ingredient.name.toLowerCase().includes(w)));
-}
-
 export type SlotContext = {
   date: string;
   type: MealType;
   eaters: MemberLite[];
+  /** Convives supplémentaires à protéger (ceux qui mangeront les restes le lendemain) */
+  alsoFor?: MemberLite[];
   needsLeftover: boolean;
   previousRecipe?: RecipeFull;
   usedThisPeriod: Set<string>;
@@ -315,10 +316,12 @@ export function scoreRecipe(recipe: RecipeFull, ctx: SlotContext, s: PlannerSett
   const maxTime = isWeekend(ctx.date) ? s.weekendMaxTime : s.weekdayMaxTime;
   const lunchMax = Math.min(maxTime, 35);
   if (totalTime(recipe) > (ctx.type === "LUNCH" ? lunchMax : maxTime)) return -Infinity;
-  if (containsDisliked(recipe, ctx.eaters)) return -Infinity;
+  // Allergies, régimes et aliments refusés : exclusion stricte (convives du repas et des restes)
+  if (conflictsFor(recipe, [...ctx.eaters, ...(ctx.alsoFor ?? [])]).length) return -Infinity;
 
   let score = rnd() * 3;
   if (recipe.isFavorite) score += 2.5;
+  score += Math.min(3, likesScore(recipe, ctx.eaters) * 1.5);
   if (recipe.rating) score += (recipe.rating - 3) * 1.2;
 
   const seasons = recipe.seasons.split(",").map((x) => x.trim()).filter(Boolean);
@@ -410,7 +413,10 @@ export function generatePlan(input: PlannerInput): MealLite[] {
         mainUserPortion: lunchExisting?.mainUserPortion ?? null,
       };
       const prevRecipe = previousDinner?.recipeId ? byId.get(previousDinner.recipeId) : undefined;
-      if (previousDinner && prevRecipe?.isBatchable && lunchUsesLeftover(h, date, s) && !previousDinner.sourceMealId) {
+      if (
+        previousDinner && prevRecipe?.isBatchable && lunchUsesLeftover(h, date, s) && !previousDinner.sourceMealId &&
+        !conflictsFor(prevRecipe, lunchEaters).length
+      ) {
         lunch = { ...base, recipeId: previousDinner.recipeId, sourceMealId: previousDinner.id };
       } else {
         const r = pickRecipe(
@@ -440,7 +446,10 @@ export function generatePlan(input: PlannerInput): MealLite[] {
       const lunchRecipe = lunch?.recipeId ? byId.get(lunch.recipeId) : undefined;
       const r = pickRecipe(
         recipes,
-        { date, type: "DINNER", eaters: dinnerEaters, needsLeftover, previousRecipe: lunchRecipe, usedThisPeriod: used, lastUsed },
+        {
+          date, type: "DINNER", eaters: dinnerEaters, needsLeftover, previousRecipe: lunchRecipe, usedThisPeriod: used, lastUsed,
+          alsoFor: needsLeftover ? eatersOf(h, next, "LUNCH") : [],
+        },
         s, rnd,
       );
       if (r) {

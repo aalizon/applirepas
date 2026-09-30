@@ -16,6 +16,9 @@
   --warn-soft: #fbefd5;
   --info: #2c6aa0;
   --info-soft: #dde9f5;
+  --bad: #c0392b;
+  --bad-soft: #fbe3e0;
+  --shadow: 0 1px 2px rgb(60 40 20 / 0.06), 0 6px 18px rgb(60 40 20 / 0.07);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,6 +38,9 @@
     --warn-soft: #3d3120;
     --info: #7fb2e0;
     --info-soft: #1f2f40;
+    --bad: #ff8a7a;
+    --bad-soft: #45201b;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 6px 18px rgb(0 0 0 / 0.25);
   }
 }
 
@@ -54,6 +60,8 @@
   --color-warn-soft: var(--warn-soft);
   --color-info: var(--info);
   --color-info-soft: var(--info-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
   --font-sans: var(--font-nunito), system-ui, sans-serif;
 }
 
@@ -63,7 +71,13 @@ body {
 }
 
 @utility card {
-    @apply rounded-2xl border border-line bg-surface;
+    @apply rounded-3xl border border-line bg-surface;
+    box-shadow: var(--shadow);
+}
+
+@utility no-scrollbar {
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
 }
 
 @utility btn {

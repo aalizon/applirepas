@@ -1,9 +1,11 @@
 import { redirect } from "next/navigation";
 import { addDays, formatDay, isValidDate, today, weekDates, weekStart } from "@/lib/dates";
 import { getHousehold, getMeals, getRecipes, getSettings } from "@/lib/data";
+import { conflictsFor } from "@/lib/allergens";
 import {
   cookPortions,
   eatenPortions,
+  eatersOf,
   mainUserDay,
   presenceOf,
   recipeMacros,
@@ -29,37 +31,40 @@ export default async function Planning({ searchParams }: PageProps<"/">) {
   ]);
   const byId = new Map(recipes.map((r) => [r.id, r]));
   const main = household.members.find((m) => m.isMainUser);
+  const active = household.members.filter((m) => m.isActive);
+  const colorIndex = new Map(household.members.map((m, i) => [m.id, i]));
 
   const days: DayView[] = dates.map((date) => {
     const slots = (["LUNCH", "DINNER"] as MealType[]).map((type) => {
       const meal = allMeals.find((m) => m.date === date && m.type === type);
       const recipe = meal?.recipeId ? byId.get(meal.recipeId) : undefined;
       const prevDinner = allMeals.find((m) => m.date === addDays(date, -1) && m.type === "DINNER");
-      const leftoverFor = meal ? allMeals.filter((m) => m.sourceMealId === meal.id).map((m) => formatDay(m.date)) : [];
+      const hasLeftovers = !!meal && allMeals.some((m) => m.sourceMealId === meal.id);
+      const eaters = eatersOf(household, date, type);
       return {
         type,
         mealId: meal?.id ?? null,
         isLocked: meal?.isLocked ?? false,
         isLeftover: !!meal?.sourceMealId,
         canUseLeftover: type === "LUNCH" && !!prevDinner?.recipeId && !prevDinner.sourceMealId,
-        leftoverFor,
+        hasLeftovers,
         recipe: recipe
           ? {
               id: recipe.id,
               title: recipe.title,
+              imageUrl: recipe.imageUrl,
               time: totalTime(recipe),
-              isBatchable: recipe.isBatchable,
               kcal: Math.round(recipeMacros(recipe).kcal),
             }
           : null,
-        members: household.members
-          .filter((m) => m.isActive)
-          .map((m) => ({
-            id: m.id,
-            name: m.name,
-            status: presenceOf(household, m.id, date, type),
-            overridden: household.overrides.some((o) => o.memberId === m.id && o.date === date && o.mealType === type),
-          })),
+        conflicts: recipe ? conflictsFor(recipe, eaters) : [],
+        members: active.map((m) => ({
+          id: m.id,
+          name: m.name,
+          color: colorIndex.get(m.id) ?? 0,
+          status: presenceOf(household, m.id, date, type),
+          overridden: household.overrides.some((o) => o.memberId === m.id && o.date === date && o.mealType === type),
+        })),
         portions: meal ? eatenPortions(household, meal) : 0,
         cookPortions: meal && !meal.sourceMealId ? cookPortions(household, meal, allMeals) : 0,
         mainPortion: meal?.mainUserPortion ?? null,
@@ -67,10 +72,7 @@ export default async function Planning({ searchParams }: PageProps<"/">) {
     });
     const nutrition =
       settings.nutritionEnabled && main
-        ? {
-            ...mainUserDay(household, date, allMeals, byId, settings.extraKcal),
-            target: settings.kcalTarget,
-          }
+        ? { ...mainUserDay(household, date, allMeals, byId, settings.extraKcal), target: settings.kcalTarget }
         : null;
     return { date, label: formatDay(date), isToday: date === today(), slots, nutrition };
   });
@@ -84,7 +86,15 @@ export default async function Planning({ searchParams }: PageProps<"/">) {
       mainUser={main ? { id: main.id, name: main.name, multiplier: main.multiplier } : null}
       recipes={recipes
         .filter((r) => !r.isExcluded)
-        .map((r) => ({ id: r.id, title: r.title, time: totalTime(r), tags: r.tags, isFavorite: r.isFavorite }))}
+        .map((r) => ({
+          id: r.id,
+          title: r.title,
+          imageUrl: r.imageUrl,
+          time: totalTime(r),
+          tags: r.tags,
+          isFavorite: r.isFavorite,
+          blockedFor: [...new Set(conflictsFor(r, active).filter((c) => c.kind !== "gout").map((c) => c.member))],
+        }))}
     />
   );
 }

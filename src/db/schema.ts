@@ -32,6 +32,8 @@ export const settings = sqliteTable("settings", {
   fatTarget: integer("fat_target"),
   /** Forfait petit-déjeuner + collations (non planifiés) ajouté à la jauge */
   extraKcal: integer("extra_kcal").notNull().default(0),
+  /** Version des données de départ déjà installées (mise à jour automatique au démarrage) */
+  seedVersion: integer("seed_version").notNull().default(0),
 });
 
 export const members = sqliteTable("members", {
@@ -43,6 +45,12 @@ export const members = sqliteTable("members", {
   isActive: integer("is_active", { mode: "boolean" }).notNull().default(true),
   /** Mots-clés d'ingrédients exclus, séparés par des virgules (ex : "champignon, poivron") */
   dislikes: text("dislikes").notNull().default(""),
+  /** Allergies : codes séparés par des virgules (gluten, lait, oeufs…) — exclusion stricte */
+  allergies: text("allergies").notNull().default(""),
+  /** Régime : "" | sans-porc | pescetarien | vegetarien | vegan — exclusion stricte */
+  diet: text("diet").notNull().default(""),
+  /** Préférences positives (mots-clés : poisson, épicé, pâtes…) — favorisées dans les propositions */
+  likes: text("likes").notNull().default(""),
   sortOrder: integer("sort_order").notNull().default(0),
 });
 
@@ -94,6 +102,10 @@ export const ingredients = sqliteTable(
     fat: real("fat"),
     /** Produit du placard (sel, huile…) : pas ajouté automatiquement à la liste de courses */
     isPantry: integer("is_pantry", { mode: "boolean" }).notNull().default(false),
+    /** Allergènes (codes UE séparés par des virgules) */
+    allergens: text("allergens").notNull().default(""),
+    /** Origine animale : volaille | boeuf | porc | viande | poisson | crustace | mollusque | animal | "" */
+    animal: text("animal").notNull().default(""),
   },
   (t) => [uniqueIndex("ingredients_name_idx").on(t.name)],
 );
@@ -117,6 +129,8 @@ export const recipes = sqliteTable("recipes", {
   rating: integer("rating"), // 1–5
   sourceUrl: text("source_url"),
   imageUrl: text("image_url"),
+  /** Crédit de la photo (auteur, licence) */
+  imageCredit: text("image_credit"),
   createdAt: text("created_at")
     .notNull()
     .default(sql`(datetime('now'))`),

@@ -12,6 +12,9 @@ export async function getHouseholdInput(): Promise<MemberInput[]> {
     isMainUser: m.isMainUser,
     isActive: m.isActive,
     dislikes: m.dislikes,
+    allergies: m.allergies ?? "",
+    diet: m.diet ?? "",
+    likes: m.likes ?? "",
     presence: Object.fromEntries(
       h.rules.filter((r) => r.memberId === m.id).map((r) => [`${r.weekday}-${r.mealType}`, r.status as PresenceStatus]),
     ),

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { Check, Plus, Trash2 } from "lucide-react";
 import { deleteRecipe, saveRecipe, type RecipeInput } from "@/app/actions";
+import { RecipeImage } from "./recipe-image";
 
 type KnownIngredient = { name: string; unit: string };
 const UNIT_LABEL: Record<string, string> = { g: "g", ml: "ml", piece: "pièce(s)" };
@@ -36,6 +37,18 @@ export function RecipeEditor({ initial, known }: { initial: RecipeInput; known: 
         <div className="sm:col-span-2">
           <label className="label">Titre</label>
           <input className="input" value={r.title} onChange={(e) => set({ title: e.target.value })} />
+        </div>
+        <div className="flex items-end gap-3 sm:col-span-2">
+          <RecipeImage src={r.imageUrl} title={r.title || "?"} className="h-16 w-20 flex-none" />
+          <div className="flex-1">
+            <label className="label">Photo (adresse d&apos;une image)</label>
+            <input
+              className="input"
+              value={r.imageUrl ?? ""}
+              placeholder="https://… ou laisser vide"
+              onChange={(e) => set({ imageUrl: e.target.value.trim() || null })}
+            />
+          </div>
         </div>
         <div className="sm:col-span-2">
           <label className="label">Description</label>

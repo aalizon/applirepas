@@ -7,7 +7,7 @@ import { HouseholdEditor } from "@/components/household-editor";
 import { NutritionForm, PreferencesForm } from "@/components/settings-forms";
 import type { Settings } from "@/db/schema";
 
-const STEPS = ["Le foyer", "Vos habitudes", "Nutrition", "C'est parti"];
+const STEPS = ["Le foyer", "Habitudes", "Nutrition", "C'est parti"];
 
 export function Wizard({ settings, household }: { settings: Settings; household: MemberInput[] }) {
   const [step, setStep] = useState(0);
@@ -46,7 +46,8 @@ export function Wizard({ settings, household }: { settings: Settings; household:
           <h2 className="h2">Qui compose le foyer, et qui mange quand ?</h2>
           <p className="text-sm text-muted">
             Pour chaque personne, indiquez les repas pris à la maison, ceux où elle <b>emporte une gamelle</b> (elle mangera
-            les restes du dîner de la veille) et ceux où elle est <b>absente</b> (cantine, restaurant…). Tout reste modifiable
+            les restes du dîner de la veille) et ceux où elle est <b>absente</b> (cantine, restaurant…). Ajoutez ses
+            <b> allergies</b>, son régime et ce qu&apos;elle aime ou non : les menus en tiendront compte. Tout reste modifiable
             ensuite dans les réglages, et au cas par cas dans le planning.
           </p>
           <HouseholdEditor initial={household} onSaved={() => setStep(1)} submitLabel="Continuer" />

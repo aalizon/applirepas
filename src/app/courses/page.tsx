@@ -53,6 +53,12 @@ export default async function Courses({ searchParams }: PageProps<"/courses">) {
         manual={manual}
         allCategories={[...CATEGORIES]}
         mealsCount={inRange.filter((m) => !m.sourceMealId && m.recipeId).length}
+        menu={inRange
+          .filter((m) => !m.sourceMealId && m.recipeId)
+          .map((m) => {
+            const r = recipes.find((x) => x.id === m.recipeId)!;
+            return { id: m.id, recipeId: r.id, title: r.title, imageUrl: r.imageUrl, label: `${formatShort(m.date)} · ${m.type === "LUNCH" ? "midi" : "soir"}` };
+          })}
       />
     </div>
   );

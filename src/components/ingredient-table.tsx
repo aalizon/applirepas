@@ -4,6 +4,12 @@ import { useMemo, useState, useTransition } from "react";
 import { Check, Search } from "lucide-react";
 import { saveIngredient } from "@/app/actions";
 import type { Ingredient } from "@/db/schema";
+import { ALLERGEN_LABELS, list } from "@/lib/allergens";
+
+const ANIMALS: [string, string][] = [
+  ["", "Végétal"], ["volaille", "Volaille"], ["boeuf", "Bœuf"], ["porc", "Porc"], ["viande", "Autre viande"],
+  ["poisson", "Poisson"], ["crustace", "Crustacé"], ["mollusque", "Mollusque"], ["animal", "Autre produit animal"],
+];
 
 export function IngredientTable({ ingredients, categories }: { ingredients: Ingredient[]; categories: string[] }) {
   const [q, setQ] = useState("");
@@ -98,6 +104,23 @@ function Row({ i, categories }: { i: Ingredient; categories: string[] }) {
         <button className="btn-ghost px-3 py-1" disabled={pending} title="Enregistrer">
           <Check size={14} className={saved ? "text-ok" : ""} />
         </button>
+      </div>
+      <div className="col-span-2 flex flex-wrap items-center gap-1.5 sm:col-span-12">
+        <select className="input w-auto py-1 text-xs" name="animal" defaultValue={i.animal} aria-label="Origine">
+          {ANIMALS.map(([v, l]) => (
+            <option key={v} value={v}>
+              {l}
+            </option>
+          ))}
+        </select>
+        {Object.entries(ALLERGEN_LABELS).map(([code, label]) => (
+          <label key={code} className="cursor-pointer">
+            <input type="checkbox" name="allergens" value={code} defaultChecked={list(i.allergens).includes(code)} className="peer sr-only" />
+            <span className="inline-block rounded-full border border-line px-2 py-0.5 text-[11px] font-semibold text-muted peer-checked:border-bad peer-checked:bg-bad peer-checked:text-white">
+              {label}
+            </span>
+          </label>
+        ))}
       </div>
     </form>
   );

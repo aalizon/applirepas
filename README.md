@@ -10,21 +10,24 @@ Cahier des charges d'origine : [`docs/cahier-des-charges-v2.md`](docs/cahier-des
 
 | | |
 |---|---|
-| **Assistant de démarrage** | Composition du foyer (coefficient de portion par personne : adulte, ado, enfant…), **planning type « Qui mange quand ? »** par personne, jour et repas : 🏠 maison · 💼 gamelle (mange les restes) · ✖ absent/cantine. Modèles rapides (écolier, bureau…), aliments refusés, aperçu des portions. Tout est modifiable dans **Réglages**. |
+| **Assistant de démarrage** | Composition du foyer (coefficient de portion par personne : adulte, ado, enfant…), **planning type « Qui mange quand ? »** par personne, jour et repas : 🏠 maison · 💼 gamelle (mange les restes) · ✖ absent/cantine. Modèles rapides (écolier, bureau…), aperçu des portions. Tout est modifiable dans **Réglages**. |
+| **Allergies & goûts, membre par membre** | Les 14 allergènes réglementaires (gluten, lait, œufs, arachides…), régime (sans porc, pescétarien, végétarien, végétalien), « aime » et « n'aime pas ». Allergies et régimes sont des **exclusions strictes**, y compris pour les restes emportés le lendemain ; les préférences favorisent les plats aimés. Chaque recette affiche « Qui peut en manger ? » et une alerte apparaît si un repas choisi à la main pose problème. |
 | **Exceptions ponctuelles** | Dans le planning, un clic sur un prénom change sa présence **pour ce repas uniquement** (clic droit : retour au planning type). |
 | **Moteur de proposition** | Génère la semaine selon : présences, temps max semaine / week-end, saison, non-répétition sur N semaines, variété des protéines, favoris et notes, aliments refusés, recettes « réchauffables » quand un reste est nécessaire, cible calorique si activée. |
-| **Planning** | Relancer 🎲, choisir 🔍, verrouiller 🔒 (conservé lors d'une nouvelle proposition), glisser-déposer pour échanger deux repas, activer/désactiver les restes du midi. |
+| **Planning** | Bloc « Ce soir » avec la photo du plat, cartes jour avec photos et pastilles colorées des convives. Un bouton 🎲 « Autre idée », les autres actions (choisir, verrouiller, restes, portion) dans un menu ⋯ ; glisser-déposer pour échanger deux repas. |
 | **Restes** | Les jours où quelqu'un emporte sa gamelle, le déjeuner = dîner de la veille ; la veille, l'appli indique « cuisiner X portions ». |
-| **Recettes** | 35 recettes familiales de départ, **import depuis une URL** (Marmiton, 750g, Cuisine AZ, Jow, Ricardo… via les données schema.org), création/édition, favoris, notes, exclusion. Quantités recalculées pour le repas. **Mode cuisine** plein écran, étape par étape, écran maintenu allumé (Wake Lock). |
+| **Recettes** | **75 recettes** de départ **avec photos** (licences libres, crédits affichés), grille visuelle avec filtres (pour tout le foyer, végétarien, sans gluten, sans lait, moins de 30 min…), **import depuis une URL** (Marmiton, 750g, Cuisine AZ, Jow, Ricardo… via les données schema.org), création/édition, favoris, notes, exclusion. Quantités recalculées pour le repas. **Mode cuisine** plein écran, étape par étape, écran maintenu allumé (Wake Lock). |
 | **Courses** | Agrégation de la semaine, conversions d'unités, arrondis « achat » (pièces entières), tri par rayon, produits du placard à part, articles manuels, cases cochées synchronisées entre appareils, copie texte, consultation **hors ligne** (PWA). |
 | **Rééquilibrage** | Optionnel : objectif kcal/macros, forfait petit-déjeuner, jauge par jour, portion ajustable par repas. Calculé **depuis les ingrédients** (valeurs Ciqual/ANSES) et uniquement pour l'utilisateur principal. |
 | **Accès** | Mot de passe familial (`APP_PASSWORD`), installable sur l'écran d'accueil du téléphone. |
 
 ## D'où viennent les recettes ?
 
-1. **Bibliothèque de départ** (`src/db/seed-data.ts`) : 35 recettes familiales originales
-   (quantités pour 1 portion adulte) et ~95 ingrédients avec valeurs nutritionnelles arrondies
-   d'après la [table Ciqual de l'ANSES](https://ciqual.anses.fr/).
+1. **Bibliothèque de départ** (`src/db/seed-data.ts`) : 75 recettes familiales originales
+   (quantités pour 1 portion adulte) et ~115 ingrédients avec valeurs nutritionnelles arrondies
+   d'après la [table Ciqual de l'ANSES](https://ciqual.anses.fr/) et leurs allergènes.
+   Photos sous licence libre : voir [`docs/PHOTOS.md`](docs/PHOTOS.md). Les bases existantes
+   reçoivent automatiquement les nouvelles recettes au démarrage (`SEED_VERSION`).
 2. **Import par URL** : la plupart des sites de cuisine publient leurs recettes au format
    structuré [schema.org/Recipe](https://schema.org/Recipe) (pour Google). L'appli lit ces
    données, convertit les quantités en portion adulte, relie les ingrédients à la base et crée
