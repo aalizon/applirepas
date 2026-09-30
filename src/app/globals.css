@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #faf7f2;
+  --surface: #ffffff;
+  --surface-2: #f3eee6;
+  --ink: #2b2620;
+  --muted: #7a6f63;
+  --line: #e6ddd0;
+  --brand: #d9572b;
+  --brand-ink: #ffffff;
+  --brand-soft: #fbe6dc;
+  --ok: #2f8a4c;
+  --ok-soft: #dff1e4;
+  --warn: #b7791f;
+  --warn-soft: #fbefd5;
+  --info: #2c6aa0;
+  --info-soft: #dde9f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b1916;
+    --surface: #25221e;
+    --surface-2: #2f2b26;
+    --ink: #f1ebe3;
+    --muted: #a99d8f;
+    --line: #3a352f;
+    --brand: #f07a4c;
+    --brand-ink: #1b1916;
+    --brand-soft: #4a2a1d;
+    --ok: #6cc38a;
+    --ok-soft: #1f3a27;
+    --warn: #e2b057;
+    --warn-soft: #3d3120;
+    --info: #7fb2e0;
+    --info-soft: #1f2f40;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-soft: var(--brand-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --font-sans: var(--font-nunito), system-ui, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+@utility card {
+    @apply rounded-2xl border border-line bg-surface;
+}
+
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition active:scale-[.98] disabled:opacity-50;
+}
+
+@utility btn-primary {
+    @apply btn bg-brand text-brand-ink hover:brightness-110;
+}
+
+@utility btn-ghost {
+    @apply btn border border-line bg-surface text-ink hover:bg-surface-2;
+}
+
+@utility btn-icon {
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted hover:bg-surface-2 hover:text-ink;
+}
+
+@utility input {
+    @apply w-full rounded-xl border border-line bg-surface px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand-soft;
+}
+
+@utility label {
+    @apply mb-1 block text-xs font-semibold uppercase tracking-wide text-muted;
+}
+
+@utility chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold;
+}
+
+@utility h1 {
+    @apply text-2xl font-extrabold tracking-tight;
+}
+
+@utility h2 {
+    @apply text-lg font-bold;
+}

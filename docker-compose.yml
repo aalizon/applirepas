@@ -1,0 +1,11 @@
+services:
+  applirepas:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      APP_PASSWORD: "changez-moi"
+      SESSION_SECRET: "une-longue-chaine-aleatoire"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
