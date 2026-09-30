@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run package
+      # Paquet prêt à envoyer sur o2switch (voir docs/DEPLOIEMENT_O2SWITCH.md)
+      - run: cd deploy && zip -qr ../applirepas-o2switch.zip .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: applirepas-o2switch
+          path: applirepas-o2switch.zip
+          retention-days: 30
