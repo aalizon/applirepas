@@ -7,7 +7,7 @@ import { SEED_PHOTOS } from "./seed-photos";
  * les bases existantes sont complétées au prochain démarrage, sans toucher aux modifications
  * de l'utilisateur (recettes supprimées exceptées : elles reviennent si leur titre a disparu).
  */
-export const SEED_VERSION = 3;
+export const SEED_VERSION = 4;
 
 /** Installe ou complète les données de départ. Idempotent. */
 export function seedIfEmpty(sqlite: DatabaseSync) {
