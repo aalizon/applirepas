@@ -427,4 +427,149 @@ export const SEED_PHOTOS: Record<string, { src: string; credit: string }> = {
     src: "/photos/wraps-houmous-crudites.webp",
     credit: "TheHungryDudes · CC BY 2.0 · Flickr · https://www.flickr.com/photos/47854142@N04/5892782408",
   },
+  // Ajouts v5 (Wikimedia Commons)
+  "Saucisses, lentilles & carottes": {
+    src: "/photos/saucisses-lentilles-carottes.webp",
+    credit: "Lablascovegmenu from London · CC BY 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=35764503",
+  },
+  "Chou braisé & saucisses": {
+    src: "/photos/chou-braise-saucisses.webp",
+    credit: "avlxyz · CC BY-SA 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=93302904",
+  },
+  "Agneau aux haricots blancs": {
+    src: "/photos/agneau-aux-haricots-blancs.webp",
+    credit: "Acabashi · CC BY-SA 4.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=60737521",
+  },
+  "Salade de riz au thon": {
+    src: "/photos/salade-de-riz-au-thon.webp",
+    credit: "Alpha from Melbourne, Australia · CC BY-SA 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=83134586",
+  },
+  "Endives au jambon gratinées": {
+    src: "/photos/endives-au-jambon-gratinees.webp",
+    credit: "Jiel Beaumadier · CC BY-SA 4.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=11766018",
+  },
+  "Croziflette": {
+    src: "/photos/croziflette.webp",
+    credit: "Daderot · CC0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=125308443",
+  },
+  "Carbonade flamande": {
+    src: "/photos/carbonade-flamande.webp",
+    credit: "Jiel Beaumadier · CC BY-SA 4.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=11765966",
+  },
+  "Daube provençale": {
+    src: "/photos/daube-provencale.webp",
+    credit: "Arnaud 25 · CC BY-SA 4.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=64030126",
+  },
+  "Parmentier de canard": {
+    src: "/photos/parmentier-de-canard.webp",
+    credit: "Marianne Casamance · CC BY-SA 4.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=97917161",
+  },
+  "Rougail saucisses & riz": {
+    src: "/photos/rougail-saucisses-riz.webp",
+    credit: "Zanywikiphoto · CC0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=202322768",
+  },
+  "Tian de légumes provençal & semoule": {
+    src: "/photos/tian-de-legumes-provencal-semoule.webp",
+    credit: "Marianne Casamance · CC BY-SA 4.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=50354239",
+  },
+  "Porc aigre-doux à l'ananas": {
+    src: "/photos/porc-aigre-doux-a-l-ananas.webp",
+    credit: "Fumikas Sagisavas · CC0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=153017366",
+  },
+  "Bibimbap végétarien": {
+    src: "/photos/bibimbap-vegetarien.webp",
+    credit: "Real rism · CC0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=151031255",
+  },
+  "Biryani de poulet": {
+    src: "/photos/biryani-de-poulet.webp",
+    credit: "Shehal · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=10799400",
+  },
+  "Salade grecque & pita": {
+    src: "/photos/salade-grecque-pita.webp",
+    credit: "zone41 (Flickr) · CC BY 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=5117231",
+  },
+  "Poulet yassa & riz": {
+    src: "/photos/poulet-yassa-riz.webp",
+    credit: "Arnaud 25 · CC0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=150037713",
+  },
+  "Penne all'arrabbiata": {
+    src: "/photos/penne-all-arrabbiata.webp",
+    credit: "Petar Milošević · CC BY-SA 4.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=132182559",
+  },
+  "Mac & cheese aux brocolis": {
+    src: "/photos/mac-cheese-aux-brocolis.webp",
+    credit: "Karen and Brad Emerson · CC BY 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=103534617",
+  },
+  "Soupe à l'oignon gratinée": {
+    src: "/photos/soupe-a-l-oignon-gratinee.webp",
+    credit: "WestportWiki · CC BY-SA 4.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=115323128",
+  },
+  "Soupe poireaux-pommes de terre & tartines fromagères": {
+    src: "/photos/soupe-poireaux-pommes-de-terre-tartines-fromageres.webp",
+    credit: "Ewan Munro from London, UK · CC BY-SA 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=24281649",
+  },
+  "Soupe thaïe au poulet & lait de coco": {
+    src: "/photos/soupe-thaie-au-poulet-lait-de-coco.webp",
+    credit: "lydiajoy1 · CC BY 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=59401061",
+  },
+  "Harira végétarienne": {
+    src: "/photos/harira-vegetarienne.webp",
+    credit: "HaJunkiyada · CC BY-SA 4.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=183587463",
+  },
+  "Galettes de courgettes & sauce yaourt": {
+    src: "/photos/galettes-de-courgettes-sauce-yaourt.webp",
+    credit: "Nicole Bratt from Seattle, WA, USA · CC BY-SA 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=80228923",
+  },
+  "Lasagnes de butternut & chèvre": {
+    src: "/photos/lasagnes-de-butternut-chevre.webp",
+    credit: "Vegan Feast Catering · CC BY 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=35602577",
+  },
+  "Salade de quinoa, avocat & maïs": {
+    src: "/photos/salade-de-quinoa-avocat-mais.webp",
+    credit: "Deodora333 · CC BY-SA 4.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=178985362",
+  },
+  "Pitas gyros de poulet & tzatziki": {
+    src: "/photos/pitas-gyros-de-poulet-tzatziki.webp",
+    credit: "Andy Li · CC0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=179550387",
+  },
+  "Spaghetti aux crevettes, ail & citron": {
+    src: "/photos/spaghetti-aux-crevettes-ail-citron.webp",
+    credit: "naotakem · CC BY 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=83010799",
+  },
+  "Cassoulet express": {
+    src: "/photos/cassoulet-express.webp",
+    credit: "BrokenSphere · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=3580400",
+  },
+  "Pâtes alla norma": {
+    src: "/photos/pates-alla-norma.webp",
+    credit: "Paoletta S. · CC BY 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=4992962",
+  },
+  "Velouté de brocoli & tartines au fromage": {
+    src: "/photos/veloute-de-brocoli-tartines-au-fromage.webp",
+    credit: "Daderot · CC0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=158138065",
+  },
+  "Mafé de poulet & patate douce": {
+    src: "/photos/mafe-de-poulet-patate-douce.webp",
+    credit: "Arnaud 25 · CC0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=150127957",
+  },
+  "Risotto petits pois, jambon & parmesan": {
+    src: "/photos/risotto-petits-pois-jambon-parmesan.webp",
+    credit: "Katrin Gilger · CC BY-SA 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=89958572",
+  },
+  "Pâtes courgettes, lardons & crème": {
+    src: "/photos/pates-courgettes-lardons-creme.webp",
+    credit: "8w9d · CC0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=165399631",
+  },
+  "Saumon en croûte d'herbes, quinoa & courgettes": {
+    src: "/photos/saumon-en-croute-d-herbes-quinoa-courgettes.webp",
+    credit: "Breville USA · CC BY 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=55046601",
+  },
+  "Quiche thon-tomate": {
+    src: "/photos/quiche-thon-tomate.webp",
+    credit: "Saaleha Bamjee from Johannesburg, South africa · CC BY-SA 2.0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=33592638",
+  },
+  "Escalopes de dinde panées & purée de carottes": {
+    src: "/photos/escalopes-de-dinde-panees-puree-de-carottes.webp",
+    credit: "Gerda Arendt · CC0 · Wikimedia Commons · https://commons.wikimedia.org/w/index.php?curid=140117224",
+  },
 };
