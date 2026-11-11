@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>AppliRepas</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="config.js"></script>
+</head>
+<body>
+  <main>
+    <img src="icon.svg" alt="" />
+    <h1>AppliRepas</h1>
+    <p id="msg">Ouverture…</p>
+  </main>
+  <script>
+    // Normalement l'appli ouvre directement le serveur (server.url). Cette page ne s'affiche
+    // que si l'application a été compilée sans adresse de serveur.
+    if (window.APPLIREPAS_URL) location.replace(window.APPLIREPAS_URL);
+    else document.getElementById("msg").innerHTML =
+      "Cette version a été compilée sans adresse de serveur. Recompilez avec la variable " +
+      "<code>APP_URL</code> (voir docs/APPLIS_MOBILES.md).";
+  </script>
+</body>
+</html>

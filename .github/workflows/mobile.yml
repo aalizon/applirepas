@@ -1,0 +1,72 @@
+name: Applis mobiles
+
+# Produit l'APK Android d'AppliRepas (voir docs/APPLIS_MOBILES.md).
+# Réglages du dépôt (Settings → Secrets and variables → Actions) :
+#   - variable APP_URL : adresse de votre instance, ex. https://repas.mondomaine.fr (obligatoire)
+#   - secrets ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD :
+#     facultatifs, pour un APK signé avec votre clé (mises à jour sans désinstaller).
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "mobile/**"
+      - "public/icon.svg"
+      - ".github/workflows/mobile.yml"
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    env:
+      APP_URL: ${{ vars.APP_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: npm ci
+      - name: Vérifier l'adresse du serveur
+        run: |
+          if [ -z "$APP_URL" ]; then
+            echo "::warning::Variable APP_URL absente : l'APK affichera une page d'aide au lieu de l'appli."
+          fi
+      - name: Générer le projet Android
+        run: |
+          node scripts/prepare-www.mjs
+          npx cap add android
+          npm run assets -- --android
+          sed -i "s/versionCode 1$/versionCode ${{ github.run_number }}/" android/app/build.gradle
+      - name: Compiler l'APK
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          export PATH="$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1):$PATH"
+          if [ -n "$ANDROID_KEYSTORE_BASE64" ]; then
+            echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.jks"
+            npx cap build android --androidreleasetype APK --signing-type apksigner \
+              --keystorepath "$RUNNER_TEMP/release.jks" --keystorepass "$ANDROID_KEYSTORE_PASSWORD" \
+              --keystorealias "$ANDROID_KEY_ALIAS" --keystorealiaspass "$ANDROID_KEY_PASSWORD"
+            cp android/app/build/outputs/apk/release/app-release-signed.apk applirepas.apk
+          else
+            echo "::notice::Pas de clé de signature : APK de type debug (à désinstaller avant chaque mise à jour)."
+            npx cap sync android
+            (cd android && ./gradlew assembleDebug --no-daemon)
+            cp android/app/build/outputs/apk/debug/app-debug.apk applirepas.apk
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: applirepas-android
+          path: mobile/applirepas.apk
+          retention-days: 30

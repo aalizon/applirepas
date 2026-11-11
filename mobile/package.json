@@ -1,0 +1,27 @@
+{
+  "name": "applirepas-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Applications Android et iOS d'AppliRepas (coquille Capacitor autour de l'instance en ligne)",
+  "scripts": {
+    "assets": "node scripts/render-icons.mjs && capacitor-assets generate --assetPath assets --iconBackgroundColor '#d9572b' --iconBackgroundColorDark '#d9572b' --splashBackgroundColor '#faf7f2' --splashBackgroundColorDark '#1c1917'",
+    "android:init": "cap add android && npm run assets -- --android",
+    "android:sync": "node scripts/prepare-www.mjs && cap sync android",
+    "android:apk": "node scripts/prepare-www.mjs && cap sync android && cd android && ./gradlew assembleDebug",
+    "ios:init": "cap add ios && npm run assets -- --ios",
+    "ios:open": "node scripts/prepare-www.mjs && cap sync ios && cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.6.0",
+    "@capacitor/core": "8.6.0",
+    "@capacitor/ios": "8.6.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "4.0.0",
+    "@capacitor/cli": "8.6.0",
+    "sharp": "0.35.5"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

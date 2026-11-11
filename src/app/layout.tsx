@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   title: "AppliRepas",
   description: "Menus de la semaine, restes pour le midi et liste de courses pour toute la famille.",
   appleWebApp: { capable: true, title: "AppliRepas", statusBarStyle: "default" },
+  // iOS n'utilise pas les icônes SVG pour l'écran d'accueil
+  icons: { icon: "/icon.svg", apple: "/apple-touch-icon.png" },
 };
 
 export const viewport: Viewport = {
