@@ -1,0 +1,7 @@
+node_modules/
+# Projets natifs générés par « npm run android:init » / « npm run ios:init »
+# (les versionner si vous les personnalisez à la main)
+android/
+ios/
+assets/*.png
+www/config.js

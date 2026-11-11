@@ -180,6 +180,15 @@ export const SEED_INGREDIENTS: SeedIngredient[] = [
   { name: "coquillettes", category: ES, unit: "g", n: [355, 12, 70, 1.5] },
   { name: "haricots blancs (conserve)", category: CS, unit: "g", n: [100, 7, 13, 0.5] },
   { name: "sardines à l'huile", category: CS, unit: "g", n: [220, 24, 0, 14] },
+  // Ajouts v4
+  { name: "endive", category: FL, unit: "piece", gramsPerPiece: 120, n: [17, 1, 2.5, 0.1] },
+  { name: "basilic frais", category: FL, unit: "g", n: [40, 3, 3, 0.6] },
+  { name: "cuisse de canard confite", category: BV, unit: "g", n: [250, 19, 0, 19] },
+  { name: "fromage blanc", category: CO, unit: "g", n: [75, 7, 4, 3] },
+  { name: "crozets de sarrasin", category: ES, unit: "g", n: [355, 12, 70, 1.5] },
+  { name: "beurre de cacahuète", category: ES, unit: "g", n: [620, 25, 15, 50] },
+  { name: "ananas (conserve)", category: CS, unit: "g", n: [65, 0.4, 15, 0.1] },
+  { name: "bière blonde", category: BS, unit: "ml", n: [40, 0.3, 3, 0] },
   // Boissons
   { name: "vin blanc", category: BS, unit: "ml", n: [70, 0, 1, 0] },
   { name: "vin rouge", category: BS, unit: "ml", n: [75, 0, 1, 0] },
@@ -1826,6 +1835,623 @@ export const SEED_RECIPES: SeedRecipe[] = [
       "Ajouter la crème en fin de cuisson. Servir avec les pommes de terre et la salade.",
     ],
   },
+  // --- Ajouts v5 : 41 recettes ---
+  {
+    title: "Endives au jambon gratinées",
+    description: "Le gratin d'hiver par excellence, douceur de la béchamel.",
+    prep: 20, cook: 35, tags: "porc,famille,four", seasons: "automne,hiver", batch: true,
+    ingredients: [
+      ["endive", 2], ["jambon blanc", 60], ["lait demi-écrémé", 150], ["beurre", 10], ["farine", 10],
+      ["gruyère râpé", 25], ["baguette", 40],
+    ],
+    steps: [
+      "Cuire les endives 15 minutes à la vapeur, bien les égoutter en les pressant.",
+      "Préparer une béchamel : beurre fondu, farine, puis lait en fouettant jusqu'à épaississement.",
+      "Enrouler chaque endive dans une tranche de jambon, ranger dans un plat.",
+      "Napper de béchamel, parsemer de gruyère et gratiner 20 minutes à 200 °C. Servir avec du pain.",
+    ],
+  },
+  {
+    title: "Croziflette",
+    description: "La cousine savoyarde de la tartiflette, avec des crozets.",
+    prep: 15, cook: 30, tags: "porc,famille,four", seasons: "hiver", batch: false,
+    ingredients: [
+      ["crozets de sarrasin", 80], ["lardons fumés", 40], ["oignon", 0.25], ["crème fraîche légère", 40],
+      ["reblochon", 60], ["vin blanc", 20], ["salade verte", 30],
+    ],
+    steps: [
+      "Cuire les crozets 15 minutes dans l'eau salée, égoutter.",
+      "Faire revenir oignon et lardons, déglacer au vin blanc.",
+      "Mélanger crozets, lardons et crème dans un plat, couvrir de reblochon.",
+      "Gratiner 15 minutes à 200 °C. Servir avec la salade.",
+    ],
+  },
+  {
+    title: "Poulet à la crème & champignons, tagliatelles",
+    description: "Une sauce onctueuse que les enfants adorent.",
+    prep: 10, cook: 25, tags: "poulet,famille", batch: true,
+    ingredients: [
+      ["blanc de poulet", 130], ["champignon de Paris", 100], ["échalote", 0.5], ["crème fraîche légère", 50],
+      ["pâtes", 80], ["huile d'olive", 5], ["persil", 3],
+    ],
+    steps: [
+      "Cuire les pâtes.",
+      "Dorer le poulet en morceaux dans l'huile, réserver.",
+      "Faire revenir l'échalote et les champignons émincés 8 minutes.",
+      "Remettre le poulet, ajouter la crème et laisser épaissir 5 minutes. Parsemer de persil, servir avec les pâtes.",
+    ],
+  },
+  {
+    title: "Navarin d'agneau printanier",
+    description: "Agneau mijoté aux petits légumes nouveaux.",
+    prep: 25, cook: 75, tags: "viande,mijote", seasons: "printemps", batch: true,
+    ingredients: [
+      ["agneau (épaule)", 140], ["carotte", 80], ["pomme de terre", 150], ["petits pois surgelés", 50],
+      ["oignon", 0.25], ["ail", 0.5], ["tomates concassées", 50], ["farine", 5], ["bouillon cube", 0.25],
+      ["huile d'olive", 5], ["herbes de Provence", 1],
+    ],
+    steps: [
+      "Dorer l'agneau en morceaux dans l'huile, ajouter l'oignon et l'ail.",
+      "Saupoudrer de farine, mélanger, puis ajouter tomates, bouillon et herbes. Couvrir d'eau.",
+      "Mijoter 45 minutes à couvert.",
+      "Ajouter carottes et pommes de terre, cuire 25 minutes, puis les petits pois 5 minutes.",
+    ],
+  },
+  {
+    title: "Carbonade flamande",
+    description: "Bœuf mijoté à la bière, fondant et légèrement sucré.",
+    prep: 20, cook: 150, tags: "boeuf,mijote", seasons: "automne,hiver", batch: true,
+    ingredients: [
+      ["bœuf à braiser", 160], ["oignon", 0.75], ["bière blonde", 120], ["moutarde", 5], ["sucre", 5],
+      ["farine", 5], ["beurre", 8], ["pomme de terre", 200],
+    ],
+    steps: [
+      "Saisir le bœuf en morceaux dans le beurre, réserver.",
+      "Faire fondre les oignons émincés 10 minutes, saupoudrer de farine et de sucre.",
+      "Remettre la viande, verser la bière et ajouter la moutarde. Couvrir et mijoter 2 h 30 à feu doux.",
+      "Servir avec des pommes de terre vapeur.",
+    ],
+  },
+  {
+    title: "Daube provençale",
+    description: "Bœuf au vin rouge, olives et carottes, encore meilleur le lendemain.",
+    prep: 25, cook: 180, tags: "boeuf,mijote", seasons: "automne,hiver", batch: true,
+    ingredients: [
+      ["bœuf à braiser", 160], ["vin rouge", 100], ["carotte", 80], ["oignon", 0.25], ["ail", 1],
+      ["tomates concassées", 60], ["olives noires", 15], ["herbes de Provence", 1], ["huile d'olive", 5],
+      ["pâtes", 70],
+    ],
+    steps: [
+      "La veille si possible, faire mariner le bœuf avec le vin, l'ail et les herbes.",
+      "Égoutter et saisir la viande dans l'huile, ajouter oignon et carottes.",
+      "Verser la marinade et les tomates, couvrir et mijoter 3 heures à feu très doux.",
+      "Ajouter les olives 15 minutes avant la fin. Servir avec des pâtes.",
+    ],
+  },
+  {
+    title: "Parmentier de canard",
+    description: "Confit effiloché sous une purée dorée, le plat de fête facile.",
+    prep: 30, cook: 30, tags: "volaille,famille,four", seasons: "automne,hiver", batch: true,
+    ingredients: [
+      ["cuisse de canard confite", 110], ["pomme de terre", 250], ["échalote", 0.5], ["lait demi-écrémé", 60],
+      ["beurre", 8], ["persil", 3], ["salade verte", 30],
+    ],
+    steps: [
+      "Cuire les pommes de terre et les écraser en purée avec le lait et le beurre.",
+      "Réchauffer le canard, retirer peau et os, effilocher la chair.",
+      "Faire revenir l'échalote dans un peu de graisse de canard, mélanger avec la viande et le persil.",
+      "Étaler la viande dans un plat, couvrir de purée et gratiner 25 minutes à 200 °C. Servir avec la salade.",
+    ],
+  },
+  {
+    title: "Rougail saucisses & riz",
+    description: "Le classique réunionnais, tomates, gingembre et saucisses mijotées.",
+    prep: 15, cook: 35, tags: "porc", batch: true,
+    ingredients: [
+      ["saucisse de Toulouse", 130], ["tomate", 150], ["oignon", 0.5], ["ail", 1], ["gingembre frais", 5],
+      ["curcuma", 1], ["riz basmati", 70], ["huile d'olive", 5],
+    ],
+    steps: [
+      "Piquer les saucisses, les blanchir 5 minutes à l'eau bouillante puis les couper en rondelles.",
+      "Les faire dorer dans l'huile, ajouter oignon, ail et gingembre hachés, puis le curcuma.",
+      "Ajouter les tomates en dés, couvrir et mijoter 25 minutes.",
+      "Servir avec le riz.",
+    ],
+  },
+  {
+    title: "Poulet yassa & riz",
+    description: "Poulet sénégalais mariné au citron, fondu d'oignons.",
+    prep: 20, cook: 40, tags: "poulet", batch: true,
+    ingredients: [
+      ["cuisse de poulet", 180], ["oignon", 1], ["citron", 0.5], ["moutarde", 8], ["ail", 0.5],
+      ["huile d'olive", 10], ["riz basmati", 70],
+    ],
+    steps: [
+      "Mariner le poulet avec le jus de citron, la moutarde, l'ail et les oignons émincés (au moins 1 heure).",
+      "Égoutter et dorer le poulet dans l'huile, réserver.",
+      "Faire fondre les oignons de la marinade 15 minutes, remettre le poulet et la marinade.",
+      "Couvrir et mijoter 25 minutes. Servir avec le riz.",
+    ],
+  },
+  {
+    title: "Mafé de poulet & patate douce",
+    description: "Sauce à la cacahuète riche et douce, plat d'Afrique de l'Ouest.",
+    prep: 20, cook: 40, tags: "poulet,mijote", seasons: "automne,hiver", batch: true,
+    ingredients: [
+      ["cuisse de poulet", 160], ["beurre de cacahuète", 25], ["tomates concassées", 80], ["patate douce", 120],
+      ["oignon", 0.25], ["ail", 0.5], ["bouillon cube", 0.25], ["riz basmati", 60], ["huile d'olive", 5],
+    ],
+    steps: [
+      "Dorer le poulet dans l'huile avec l'oignon et l'ail.",
+      "Délayer le beurre de cacahuète dans le bouillon chaud, verser avec les tomates.",
+      "Ajouter la patate douce en cubes, couvrir et mijoter 35 minutes.",
+      "Servir avec le riz.",
+    ],
+  },
+  {
+    title: "Risotto petits pois, jambon & parmesan",
+    description: "Crémeux, printanier et apprécié des petits.",
+    prep: 10, cook: 25, tags: "porc,famille", seasons: "printemps,ete", batch: false,
+    ingredients: [
+      ["riz arborio", 80], ["petits pois surgelés", 60], ["jambon blanc", 40], ["échalote", 0.5],
+      ["parmesan", 15], ["beurre", 8], ["bouillon cube", 0.25], ["vin blanc", 20],
+    ],
+    steps: [
+      "Faire revenir l'échalote dans la moitié du beurre, ajouter le riz et le nacrer.",
+      "Déglacer au vin blanc puis ajouter le bouillon chaud louche par louche pendant 18 minutes.",
+      "Ajouter les petits pois 5 minutes avant la fin, puis le jambon en dés.",
+      "Hors du feu, incorporer le reste du beurre et le parmesan.",
+    ],
+  },
+  {
+    title: "Pâtes courgettes, lardons & crème",
+    description: "Un plat de pâtes complet en 20 minutes.",
+    prep: 10, cook: 15, tags: "porc,rapide,famille", seasons: "printemps,ete", batch: false,
+    ingredients: [
+      ["pâtes", 90], ["courgette", 120], ["lardons fumés", 35], ["crème fraîche légère", 30],
+      ["parmesan", 10], ["ail", 0.5],
+    ],
+    steps: [
+      "Cuire les pâtes.",
+      "Faire dorer les lardons, ajouter la courgette en demi-rondelles et l'ail, cuire 8 minutes.",
+      "Ajouter la crème, mélanger avec les pâtes égouttées et servir avec le parmesan.",
+    ],
+  },
+  {
+    title: "One pot pasta tomate, mozzarella & basilic",
+    description: "Tout cuit dans la même casserole : zéro vaisselle.",
+    prep: 10, cook: 15, tags: "vege,rapide,famille", seasons: "printemps,ete", batch: false,
+    ingredients: [
+      ["pâtes", 90], ["tomate cerise", 120], ["oignon", 0.25], ["ail", 0.5], ["mozzarella", 50],
+      ["basilic frais", 3], ["huile d'olive", 8], ["parmesan", 10],
+    ],
+    steps: [
+      "Dans une grande sauteuse, mettre pâtes crues, tomates cerises coupées, oignon émincé, ail, huile et basilic.",
+      "Couvrir d'eau à hauteur (environ 250 ml par portion), saler.",
+      "Cuire à feu vif en remuant jusqu'à absorption de l'eau (12 minutes environ).",
+      "Ajouter la mozzarella en dés et le parmesan, servir aussitôt.",
+    ],
+  },
+  {
+    title: "Penne all'arrabbiata",
+    description: "Sauce tomate pimentée, l'italien express des adultes.",
+    prep: 5, cook: 15, tags: "vege,rapide,leger", batch: false,
+    ingredients: [
+      ["pâtes", 90], ["tomates concassées", 150], ["ail", 1], ["paprika", 1], ["huile d'olive", 8],
+      ["persil", 3], ["parmesan", 10],
+    ],
+    steps: [
+      "Cuire les pâtes.",
+      "Faire revenir l'ail dans l'huile avec le paprika (ou du piment) 1 minute.",
+      "Ajouter les tomates et mijoter 10 minutes.",
+      "Mélanger avec les pâtes, parsemer de persil et de parmesan.",
+    ],
+  },
+  {
+    title: "Mac & cheese aux brocolis",
+    description: "Le gratin de pâtes au cheddar, avec un peu de vert.",
+    prep: 15, cook: 25, tags: "vege,famille,four", batch: true,
+    ingredients: [
+      ["coquillettes", 80], ["brocoli", 100], ["cheddar", 40], ["lait demi-écrémé", 120], ["beurre", 8],
+      ["farine", 8], ["chapelure", 8],
+    ],
+    steps: [
+      "Cuire les pâtes avec les fleurettes de brocoli ajoutées 4 minutes avant la fin.",
+      "Préparer une béchamel, y faire fondre les trois quarts du cheddar.",
+      "Mélanger le tout dans un plat, couvrir du reste de cheddar et de chapelure.",
+      "Gratiner 15 minutes à 200 °C.",
+    ],
+  },
+  {
+    title: "Gratin de colin aux poireaux",
+    description: "Poisson fondant sur lit de poireaux à la crème.",
+    prep: 20, cook: 30, tags: "poisson,famille,four", seasons: "automne,hiver", batch: false,
+    ingredients: [
+      ["filet de colin", 140], ["poireau", 150], ["crème fraîche légère", 40], ["gruyère râpé", 20],
+      ["beurre", 5], ["riz basmati", 60],
+    ],
+    steps: [
+      "Faire fondre les poireaux émincés dans le beurre 10 minutes, ajouter la crème.",
+      "Étaler dans un plat, poser le poisson dessus et parsemer de gruyère.",
+      "Cuire 20 minutes à 200 °C. Servir avec le riz.",
+    ],
+  },
+  {
+    title: "Saumon en croûte d'herbes, quinoa & courgettes",
+    description: "Croustillant dessus, moelleux dedans.",
+    prep: 15, cook: 20, tags: "poisson,leger,four", seasons: "printemps,ete", batch: false,
+    ingredients: [
+      ["pavé de saumon", 130], ["chapelure", 10], ["persil", 5], ["moutarde", 5], ["huile d'olive", 8],
+      ["quinoa", 60], ["courgette", 150], ["citron", 0.25],
+    ],
+    steps: [
+      "Cuire le quinoa.",
+      "Badigeonner le saumon de moutarde, couvrir d'un mélange chapelure, persil et la moitié de l'huile.",
+      "Cuire 15 minutes à 200 °C avec les courgettes en rondelles arrosées du reste d'huile.",
+      "Servir avec le quinoa et un filet de citron.",
+    ],
+  },
+  {
+    title: "Cabillaud sauce vierge & écrasé de pommes de terre",
+    description: "Frais et ensoleillé, prêt en 30 minutes.",
+    prep: 15, cook: 20, tags: "poisson,leger", seasons: "printemps,ete", batch: false,
+    ingredients: [
+      ["filet de cabillaud", 140], ["pomme de terre", 200], ["tomate", 80], ["échalote", 0.25],
+      ["basilic frais", 3], ["huile d'olive", 15], ["citron", 0.25],
+    ],
+    steps: [
+      "Cuire les pommes de terre et les écraser grossièrement avec un tiers de l'huile.",
+      "Sauce vierge : tomate en petits dés, échalote, basilic, jus de citron et le reste de l'huile.",
+      "Cuire le cabillaud 4 minutes de chaque côté à la poêle ou 12 minutes au four.",
+      "Servir le poisson sur l'écrasé, napper de sauce vierge.",
+    ],
+  },
+  {
+    title: "Croquettes de thon & salade",
+    description: "Avec un reste de purée et une boîte de thon : astucieux.",
+    prep: 20, cook: 15, tags: "poisson,famille", batch: false,
+    ingredients: [
+      ["thon au naturel", 80], ["pomme de terre", 150], ["œuf", 0.5], ["persil", 3], ["chapelure", 20],
+      ["huile d'olive", 10], ["salade verte", 40], ["citron", 0.25],
+    ],
+    steps: [
+      "Cuire les pommes de terre et les écraser.",
+      "Mélanger avec le thon émietté, l'œuf et le persil, former des galettes.",
+      "Les passer dans la chapelure et les dorer 4 minutes de chaque côté dans l'huile.",
+      "Servir avec la salade et des quartiers de citron.",
+    ],
+  },
+  {
+    title: "Quiche thon-tomate",
+    description: "La quiche du placard, parfaite pour la gamelle.",
+    prep: 15, cook: 35, tags: "poisson,famille,four", batch: true,
+    ingredients: [
+      ["pâte brisée", 0.25], ["thon au naturel", 50], ["tomate", 70], ["œuf", 0.75], ["crème fraîche légère", 40],
+      ["moutarde", 5], ["gruyère râpé", 15], ["salade verte", 30],
+    ],
+    steps: [
+      "Foncer un moule avec la pâte, la badigeonner de moutarde.",
+      "Répartir le thon émietté et les rondelles de tomate.",
+      "Battre œufs et crème, verser, parsemer de gruyère.",
+      "Cuire 35 minutes à 190 °C. Servir avec la salade.",
+    ],
+  },
+  {
+    title: "Soupe à l'oignon gratinée",
+    description: "Réconfortante, avec ses croûtons au fromage fondant.",
+    prep: 15, cook: 45, tags: "vege,mijote", seasons: "automne,hiver", batch: true,
+    ingredients: [
+      ["oignon", 1.25], ["beurre", 10], ["farine", 5], ["vin blanc", 30], ["bouillon cube", 0.5],
+      ["baguette", 50], ["gruyère râpé", 30],
+    ],
+    steps: [
+      "Faire fondre les oignons émincés dans le beurre 25 minutes à feu doux jusqu'à coloration.",
+      "Saupoudrer de farine, déglacer au vin blanc et ajouter 300 ml de bouillon par portion.",
+      "Mijoter 15 minutes.",
+      "Verser dans des bols, couvrir de tranches de pain et de gruyère, gratiner 5 minutes sous le gril.",
+    ],
+  },
+  {
+    title: "Soupe poireaux-pommes de terre & tartines fromagères",
+    description: "La soupe de grand-mère, toute simple.",
+    prep: 15, cook: 30, tags: "vege,leger,famille", seasons: "automne,hiver,printemps", batch: true,
+    ingredients: [
+      ["poireau", 150], ["pomme de terre", 150], ["beurre", 5], ["bouillon cube", 0.25], ["crème fraîche légère", 15],
+      ["baguette", 50], ["fromage de chèvre", 25],
+    ],
+    steps: [
+      "Faire suer les poireaux émincés dans le beurre 5 minutes.",
+      "Ajouter les pommes de terre en dés, le bouillon et 300 ml d'eau par portion. Cuire 25 minutes.",
+      "Mixer avec la crème.",
+      "Servir avec des tartines de chèvre passées au four.",
+    ],
+  },
+  {
+    title: "Soupe thaïe au poulet & lait de coco",
+    description: "Bouillon parfumé au gingembre et citron, un plat complet.",
+    prep: 15, cook: 20, tags: "poulet,leger", batch: false,
+    ingredients: [
+      ["blanc de poulet", 100], ["lait de coco", 100], ["champignon de Paris", 60], ["gingembre frais", 5],
+      ["citron", 0.25], ["sauce nuoc-mâm", 5], ["coriandre fraîche", 3], ["nouilles de riz", 50],
+      ["bouillon cube", 0.25],
+    ],
+    steps: [
+      "Porter à frémissement 250 ml de bouillon par portion avec le gingembre en lamelles.",
+      "Ajouter le lait de coco, le poulet en fines lanières et les champignons. Cuire 10 minutes.",
+      "Ajouter les nouilles de riz 3 minutes, puis le jus de citron et le nuoc-mâm.",
+      "Servir parsemé de coriandre.",
+    ],
+  },
+  {
+    title: "Harira végétarienne",
+    description: "Soupe marocaine épaisse aux lentilles et pois chiches.",
+    prep: 15, cook: 45, tags: "vege,mijote", seasons: "automne,hiver", batch: true,
+    ingredients: [
+      ["lentilles vertes", 35], ["pois chiches (conserve)", 70], ["tomates concassées", 100], ["oignon", 0.25],
+      ["céleri branche", 30], ["coriandre fraîche", 4], ["persil", 3], ["curcuma", 1], ["cumin", 1],
+      ["farine", 5], ["citron", 0.25], ["huile d'olive", 5],
+    ],
+    steps: [
+      "Faire revenir oignon et céleri hachés dans l'huile avec les épices.",
+      "Ajouter lentilles, tomates et 350 ml d'eau par portion. Cuire 30 minutes.",
+      "Ajouter les pois chiches et les herbes, puis lier avec la farine délayée dans un peu d'eau.",
+      "Cuire encore 10 minutes. Servir avec un filet de citron.",
+    ],
+  },
+  {
+    title: "Galettes de courgettes & sauce yaourt",
+    description: "Croustillantes, une façon maligne de faire manger des légumes.",
+    prep: 20, cook: 15, tags: "vege,oeuf,leger", seasons: "ete", batch: false,
+    ingredients: [
+      ["courgette", 200], ["œuf", 0.75], ["farine", 25], ["feta", 30], ["menthe fraîche", 2],
+      ["huile d'olive", 10], ["yaourt nature", 60], ["citron", 0.25], ["salade verte", 30],
+    ],
+    steps: [
+      "Râper les courgettes, les saler et les presser pour retirer l'eau.",
+      "Mélanger avec les œufs, la farine, la feta émiettée et la menthe.",
+      "Cuire des petites galettes 3 minutes de chaque côté dans l'huile.",
+      "Servir avec la sauce yaourt-citron et la salade.",
+    ],
+  },
+  {
+    title: "Tian de légumes provençal & semoule",
+    description: "Légumes du soleil en rosace, confits au four.",
+    prep: 20, cook: 50, tags: "vege,leger,four", seasons: "ete,automne", batch: true,
+    ingredients: [
+      ["courgette", 120], ["aubergine", 100], ["tomate", 120], ["oignon", 0.25], ["ail", 0.5],
+      ["herbes de Provence", 1], ["huile d'olive", 12], ["semoule", 60], ["fromage de chèvre", 25],
+    ],
+    steps: [
+      "Étaler l'oignon émincé et l'ail au fond d'un plat.",
+      "Disposer en rosace les rondelles de courgette, aubergine et tomate.",
+      "Arroser d'huile, parsemer d'herbes et cuire 50 minutes à 180 °C, avec le chèvre émietté les 10 dernières minutes.",
+      "Servir avec la semoule.",
+    ],
+  },
+  {
+    title: "Lasagnes de butternut & chèvre",
+    description: "Version végétarienne douce et automnale.",
+    prep: 30, cook: 40, tags: "vege,famille,four", seasons: "automne,hiver", batch: true,
+    ingredients: [
+      ["courge butternut", 200], ["feuilles de lasagne", 60], ["fromage de chèvre", 40], ["lait demi-écrémé", 150],
+      ["beurre", 10], ["farine", 10], ["épinards frais", 50], ["parmesan", 10],
+    ],
+    steps: [
+      "Cuire la butternut en cubes 15 minutes à la vapeur et l'écraser.",
+      "Préparer une béchamel avec le beurre, la farine et le lait.",
+      "Alterner feuilles, purée de butternut, épinards, chèvre émietté et béchamel.",
+      "Finir par la béchamel et le parmesan. Cuire 35 minutes à 180 °C.",
+    ],
+  },
+  {
+    title: "Flammekueche",
+    description: "La tarte flambée alsacienne, croustillante et fondante.",
+    prep: 15, cook: 15, tags: "porc,rapide,famille,four", batch: false,
+    ingredients: [
+      ["pâte à pizza", 0.25], ["fromage blanc", 50], ["crème fraîche légère", 30], ["oignon", 0.5],
+      ["lardons fumés", 40], ["salade verte", 40],
+    ],
+    steps: [
+      "Étaler la pâte très finement sur une plaque.",
+      "Mélanger fromage blanc et crème, salez, poivrez, étaler sur la pâte.",
+      "Répartir les oignons en fines lamelles et les lardons.",
+      "Cuire 12 à 15 minutes à 250 °C. Servir avec la salade.",
+    ],
+  },
+  {
+    title: "Wok de poulet aux noix de cajou",
+    description: "Le classique du traiteur asiatique, en mieux.",
+    prep: 15, cook: 15, tags: "poulet,rapide", batch: false,
+    ingredients: [
+      ["blanc de poulet", 130], ["noix de cajou", 20], ["poivron", 80], ["oignon", 0.25], ["sauce soja", 15],
+      ["miel", 5], ["gingembre frais", 3], ["huile d'olive", 8], ["riz basmati", 70],
+    ],
+    steps: [
+      "Cuire le riz.",
+      "Faire griller les noix de cajou à sec, réserver.",
+      "Saisir le poulet en dés dans l'huile très chaude, ajouter oignon, poivron et gingembre, sauter 5 minutes.",
+      "Ajouter soja, miel et noix de cajou, mélanger 1 minute. Servir avec le riz.",
+    ],
+  },
+  {
+    title: "Porc aigre-doux à l'ananas",
+    description: "Sucré-salé coloré, toujours un succès.",
+    prep: 15, cook: 20, tags: "porc,famille", batch: true,
+    ingredients: [
+      ["filet mignon de porc", 130], ["ananas (conserve)", 70], ["poivron", 80], ["oignon", 0.25],
+      ["sauce soja", 10], ["vinaigre", 10], ["sucre", 8], ["coulis de tomate", 30], ["farine", 5],
+      ["huile d'olive", 8], ["riz basmati", 70],
+    ],
+    steps: [
+      "Cuire le riz.",
+      "Fariner légèrement les dés de porc et les dorer dans l'huile, réserver.",
+      "Sauter oignon et poivron 5 minutes, ajouter l'ananas.",
+      "Ajouter soja, vinaigre, sucre et coulis, remettre la viande et laisser napper 3 minutes.",
+    ],
+  },
+  {
+    title: "Bibimbap végétarien",
+    description: "Bol coréen de riz, légumes sautés et œuf au plat.",
+    prep: 20, cook: 20, tags: "vege,oeuf", batch: false,
+    ingredients: [
+      ["riz basmati", 70], ["œuf", 1], ["épinards frais", 60], ["carotte", 60], ["champignon de Paris", 60],
+      ["concombre", 50], ["sauce soja", 10], ["graines de sésame", 3], ["huile d'olive", 8],
+    ],
+    steps: [
+      "Cuire le riz.",
+      "Sauter séparément carottes en julienne, champignons et épinards avec un peu d'huile et de soja.",
+      "Cuire l'œuf au plat.",
+      "Dresser le riz, les légumes et le concombre en bâtonnets en rayons, l'œuf au centre, parsemer de sésame.",
+    ],
+  },
+  {
+    title: "Biryani de poulet",
+    description: "Riz parfumé aux épices, cuit avec le poulet mariné.",
+    prep: 20, cook: 35, tags: "poulet,famille", batch: true,
+    ingredients: [
+      ["cuisse de poulet", 150], ["riz basmati", 75], ["yaourt nature", 40], ["oignon", 0.5], ["ail", 0.5],
+      ["gingembre frais", 3], ["garam masala", 2], ["curcuma", 1], ["huile d'olive", 8], ["coriandre fraîche", 3],
+      ["noix de cajou", 10],
+    ],
+    steps: [
+      "Mariner le poulet avec le yaourt, l'ail, le gingembre et les épices (30 minutes ou plus).",
+      "Faire dorer l'oignon émincé dans l'huile, ajouter le poulet et sa marinade, cuire 10 minutes.",
+      "Ajouter le riz rincé et 1,5 fois son volume d'eau, couvrir et cuire 18 minutes à feu doux.",
+      "Laisser reposer 5 minutes, parsemer de coriandre et de noix de cajou grillées.",
+    ],
+  },
+  {
+    title: "Salade grecque & pita",
+    description: "Fraîcheur d'été sans cuisson.",
+    prep: 15, cook: 0, tags: "vege,rapide,leger", seasons: "ete", batch: false,
+    ingredients: [
+      ["concombre", 100], ["tomate", 120], ["feta", 50], ["olives noires", 15], ["oignon", 0.125],
+      ["huile d'olive", 10], ["herbes de Provence", 0.5], ["pain pita", 1],
+    ],
+    steps: [
+      "Couper concombre et tomates en gros dés, l'oignon en fines lamelles.",
+      "Ajouter les olives et la feta en cubes.",
+      "Arroser d'huile, parsemer d'origan ou d'herbes. Servir avec la pita tiédie.",
+    ],
+  },
+  {
+    title: "Salade de quinoa, avocat & maïs",
+    description: "Un bol complet et coloré, idéal en gamelle.",
+    prep: 15, cook: 15, tags: "vege,leger,rapide", seasons: "printemps,ete", batch: false,
+    ingredients: [
+      ["quinoa", 60], ["avocat", 0.5], ["maïs (conserve)", 50], ["haricots rouges (conserve)", 60],
+      ["tomate cerise", 80], ["coriandre fraîche", 3], ["citron", 0.25], ["huile d'olive", 8],
+    ],
+    steps: [
+      "Cuire le quinoa et le laisser refroidir.",
+      "Ajouter maïs et haricots égouttés, tomates cerises coupées, avocat en dés.",
+      "Assaisonner avec citron, huile et coriandre.",
+    ],
+  },
+  {
+    title: "Pitas gyros de poulet & tzatziki",
+    description: "Street-food grecque à la maison.",
+    prep: 20, cook: 15, tags: "poulet,famille", seasons: "printemps,ete", batch: false,
+    ingredients: [
+      ["blanc de poulet", 120], ["paprika", 1], ["cumin", 1], ["pain pita", 1], ["yaourt nature", 50],
+      ["concombre", 50], ["ail", 0.25], ["tomate", 60], ["oignon", 0.125], ["huile d'olive", 8],
+      ["pomme de terre", 150],
+    ],
+    steps: [
+      "Couper les pommes de terre en frites, les rôtir 30 minutes à 220 °C avec la moitié de l'huile.",
+      "Mariner le poulet en lanières avec épices et le reste de l'huile, le saisir 8 minutes.",
+      "Tzatziki : yaourt, concombre râpé et pressé, ail.",
+      "Garnir les pitas de poulet, tomate, oignon et tzatziki. Servir avec les frites.",
+    ],
+  },
+  {
+    title: "Escalopes de dinde panées & purée de carottes",
+    description: "Croustillant et doux, le menu des enfants.",
+    prep: 20, cook: 25, tags: "volaille,famille", batch: false,
+    ingredients: [
+      ["escalope de dinde", 120], ["œuf", 0.25], ["farine", 10], ["chapelure", 20], ["huile d'olive", 12],
+      ["carotte", 150], ["pomme de terre", 100], ["beurre", 8], ["lait demi-écrémé", 30],
+    ],
+    steps: [
+      "Cuire carottes et pommes de terre 20 minutes, les mixer avec le beurre et le lait.",
+      "Passer les escalopes dans la farine, l'œuf battu puis la chapelure.",
+      "Les dorer 3 à 4 minutes de chaque côté dans l'huile.",
+      "Servir avec la purée.",
+    ],
+  },
+  {
+    title: "Spaghetti aux crevettes, ail & citron",
+    description: "Saveurs de bord de mer en 20 minutes.",
+    prep: 10, cook: 15, tags: "poisson,rapide", batch: false,
+    ingredients: [
+      ["spaghetti", 90], ["crevettes décortiquées", 100], ["ail", 1], ["citron", 0.25], ["persil", 4],
+      ["huile d'olive", 12], ["tomate cerise", 60],
+    ],
+    steps: [
+      "Cuire les spaghetti.",
+      "Faire revenir l'ail émincé dans l'huile, ajouter les crevettes et les tomates cerises coupées, cuire 4 minutes.",
+      "Ajouter le zeste et le jus de citron, les pâtes égouttées et le persil. Mélanger avec un peu d'eau de cuisson.",
+    ],
+  },
+  {
+    title: "Cassoulet express",
+    description: "Tout le goût du cassoulet sans y passer la journée.",
+    prep: 15, cook: 45, tags: "porc,mijote", seasons: "automne,hiver", batch: true,
+    ingredients: [
+      ["saucisse de Toulouse", 100], ["lardons fumés", 30], ["haricots blancs (conserve)", 180],
+      ["tomates concassées", 80], ["carotte", 50], ["oignon", 0.25], ["ail", 0.5], ["bouillon cube", 0.25],
+      ["chapelure", 10], ["herbes de Provence", 1],
+    ],
+    steps: [
+      "Dorer saucisses en tronçons et lardons, ajouter oignon, ail et carotte en dés.",
+      "Ajouter haricots égouttés, tomates, herbes et un verre de bouillon.",
+      "Verser dans un plat, couvrir de chapelure et cuire 35 minutes à 180 °C.",
+    ],
+  },
+  {
+    title: "Cuisses de poulet au miel & citron, patates douces rôties",
+    description: "Caramélisé au four, tout cuit sur la même plaque.",
+    prep: 15, cook: 40, tags: "poulet,famille,four", batch: false,
+    ingredients: [
+      ["cuisse de poulet", 200], ["miel", 10], ["citron", 0.25], ["ail", 0.5], ["patate douce", 200],
+      ["huile d'olive", 10], ["herbes de Provence", 1], ["salade verte", 30],
+    ],
+    steps: [
+      "Mélanger miel, jus de citron, ail et la moitié de l'huile, en badigeonner le poulet.",
+      "Disposer sur une plaque avec les patates douces en quartiers arrosées du reste d'huile et des herbes.",
+      "Rôtir 40 minutes à 200 °C en arrosant à mi-cuisson.",
+      "Servir avec la salade.",
+    ],
+  },
+  {
+    title: "Pâtes alla norma",
+    description: "Aubergines fondantes et sauce tomate à la sicilienne.",
+    prep: 15, cook: 25, tags: "vege,famille", seasons: "ete,automne", batch: true,
+    ingredients: [
+      ["pâtes", 90], ["aubergine", 150], ["tomates concassées", 120], ["ail", 0.5], ["basilic frais", 3],
+      ["ricotta", 30], ["huile d'olive", 15],
+    ],
+    steps: [
+      "Faire dorer les aubergines en dés dans l'huile 10 minutes.",
+      "Ajouter l'ail et les tomates, mijoter 15 minutes.",
+      "Cuire les pâtes, les mélanger à la sauce avec le basilic.",
+      "Servir avec la ricotta émiettée.",
+    ],
+  },
+  {
+    title: "Velouté de brocoli & tartines au fromage",
+    description: "Vert, doux et vite prêt.",
+    prep: 10, cook: 20, tags: "vege,leger,rapide", seasons: "automne,hiver,printemps", batch: true,
+    ingredients: [
+      ["brocoli", 200], ["pomme de terre", 80], ["oignon", 0.25], ["bouillon cube", 0.25],
+      ["crème fraîche légère", 20], ["baguette", 50], ["gruyère râpé", 25],
+    ],
+    steps: [
+      "Cuire brocoli, pomme de terre et oignon dans 300 ml de bouillon par portion, 20 minutes.",
+      "Mixer avec la crème.",
+      "Servir avec des tartines de gruyère gratinées.",
+    ],
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -1867,7 +2493,7 @@ export const SEED_ALLERGENS: Record<string, string> = {
   "œuf": "oeufs",
   "beurre": "lait", "crème fraîche légère": "lait", "lait demi-écrémé": "lait", "yaourt nature": "lait",
   "gruyère râpé": "lait", "parmesan": "lait", "mozzarella": "lait", "cheddar": "lait", "fromage de chèvre": "lait",
-  "reblochon": "lait", "ricotta": "lait", "feta": "lait", "pesto": "lait,fruits-a-coque",
+  "reblochon": "lait", "fromage blanc": "lait", "ricotta": "lait", "feta": "lait", "pesto": "lait,fruits-a-coque",
   "filet de cabillaud": "poissons", "pavé de saumon": "poissons", "thon au naturel": "poissons", "sauce nuoc-mâm": "poissons",
   "crevettes décortiquées": "crustaces", "pâte de curry rouge": "crustaces", "moules": "mollusques",
   "noix de cajou": "fruits-a-coque", "cacahuètes": "arachides", "graines de sésame": "sesame",
@@ -1875,6 +2501,7 @@ export const SEED_ALLERGENS: Record<string, string> = {
   "halloumi": "lait", "tortellini ricotta-épinards": "gluten,oeufs,lait", "houmous": "sesame", "coquillettes": "gluten",
   "filet de colin": "poissons", "maquereau": "poissons", "sardines à l'huile": "poissons",
   "vin blanc": "sulfites", "vin rouge": "sulfites", "vinaigre": "sulfites",
+  "crozets de sarrasin": "gluten", "bière blonde": "gluten", "beurre de cacahuète": "arachides",
 };
 
 /** Origine animale : volaille | boeuf | porc | viande (autre) | poisson | crustace | mollusque | animal (miel…) */
@@ -1886,5 +2513,5 @@ export const SEED_ANIMAL: Record<string, string> = {
   "filet de colin": "poisson", "maquereau": "poisson", "sardines à l'huile": "poisson",
   "filet de cabillaud": "poisson", "pavé de saumon": "poisson", "thon au naturel": "poisson", "sauce nuoc-mâm": "poisson",
   "crevettes décortiquées": "crustace", "pâte de curry rouge": "crustace", "moules": "mollusque",
-  "miel": "animal",
+  "cuisse de canard confite": "volaille", "miel": "animal",
 };
